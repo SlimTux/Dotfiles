@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-10-06 Fri 19:53 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SlimTux's Emacs Config</title>
+<meta name="author" content="SlimTux" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">SlimTux&rsquo;s Emacs Config</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge9a201d">1. Introduction</a></li>
+<li><a href="#orge087637">2. Package Management</a>
+<ul>
+<li><a href="#org22dfbd1">2.1. Melpa</a></li>
+</ul>
+</li>
+<li><a href="#org8e9aa21">3. UI</a>
+<ul>
+<li><a href="#org188cf7f">3.1. Fonts(FIX-ME)</a></li>
+<li><a href="#orgbd2ac8a">3.2. Theme</a></li>
+<li><a href="#org30b054b">3.3. Line Numbers</a></li>
+</ul>
+</li>
+<li><a href="#org98dbd27">4. Meta</a>
+<ul>
+<li><a href="#orgc3ec264">4.1. Org Directory</a></li>
+</ul>
+</li>
+<li><a href="#orgaddec2e">5. Programs</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org391f5e9">5.0.1. Editing Features</a></li>
+</ul>
+</li>
+<li><a href="#org3f6bb22">5.1. Highlight Indent Guides</a></li>
+<li><a href="#org0710c84">5.2. Emacs LSP</a>
+<ul>
+<li><a href="#orga3654f0">5.2.1. LSP Mode</a></li>
+</ul>
+</li>
+<li><a href="#org6eb28fc">5.3. Languages</a>
+<ul>
+<li><a href="#org965b173">5.3.1. Web (html/css/js)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org448c9b3">6. Org Mode</a>
+<ul>
+<li><a href="#orgba84308">6.1. Org Bullet</a></li>
+<li><a href="#orgd2f71c9">6.2. Org Agenda</a></li>
+</ul>
+</li>
+<li><a href="#org27a058f">7. Misc</a>
+<ul>
+<li><a href="#org1077a70">7.1. Locales</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge9a201d" class="outline-2">
+<h2 id="orge9a201d"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is an Elisp program that runs every time I start my Emacs editor. Some people also call it an <b>emacs config</b>. Why am I writing it under Org mode? <i>Literate Programming, Bitch</i>!
+</p>
+
+<ul class="org-ul">
+<li><b>Author</b>: SlimTux</li>
+<li><b>Created</b>: 06-10-2023</li>
+<li><b>License</b>: <a href="./LICENSE">GNU General Public License (GPL)</a></li>
+</ul>
+
+
+<div id="org6181808" class="figure">
+<p><img src="https://imgs.xkcd.com/comics/real_programmers.png" alt="real_programmers.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>XKCD Emacs Comic</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge087637" class="outline-2">
+<h2 id="orge087637"><span class="section-number-2">2.</span> Package Management</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Emacs is like an operating system; it is highly extensible. You can install new functionality by just installing a package, similar to how you do it in an OS. You can also configure these programs by changing some Elisp variables.
+</p>
+
+<p class="verse">
+An average Emacs user can easily end up installing 100+ packages.<br />
+</p>
+</div>
+<div id="outline-container-org22dfbd1" class="outline-3">
+<h3 id="org22dfbd1"><span class="section-number-3">2.1.</span> Melpa</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li><b>Reference</b>: <a href="https://www.melpa.org/">https://www.melpa.org/</a></li>
+</ul>
+
+<p>
+By default, Emacs contains a limited number of package choices. This is why we need Melpa. It&rsquo;s a package repository for Emacs.
+</p>
+
+<p class="verse">
+MELPA is an ELPA-compatible package repository that contains an enormous number of useful Emacs packages.<br />
+</p>
+
+<p>
+Think of it like the VSCode Plugin Marketplace (eww).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #61bfff;">(</span><span style="color: #8be9fd;">require</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">package</span><span style="color: #61bfff;">)</span>
+<span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">package-enable-at-startup</span> nil<span style="color: #61bfff;">)</span>
+
+<span style="color: #61bfff;">(</span><span style="color: #50fa7b;">add-to-list</span> <span style="color: #ff79c6;">'</span><span style="color: #ffc9e8;">package-archives</span>
+             <span style="color: #ff79c6;">'</span><span style="color: #ff79c6;">(</span><span style="color: #f1fa8c;">"melpa"</span> . <span style="color: #f1fa8c;">"https://melpa.org/packages/"</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+<span style="color: #61bfff;">(</span><span style="color: #50fa7b;">package-initialize</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8e9aa21" class="outline-2">
+<h2 id="org8e9aa21"><span class="section-number-2">3.</span> UI</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org188cf7f" class="outline-3">
+<h3 id="org188cf7f"><span class="section-number-3">3.1.</span> Fonts(FIX-ME)</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">doom-font</span>  <span style="color: #ff79c6;">(</span><span style="color: #8be9fd;">font-spec</span> <span style="color: #ffb86c;">:family</span> <span style="color: #f1fa8c;">"JetBrains Mono"</span> <span style="color: #ffb86c;">:size</span> <span style="color: #bd93f9; font-weight: bold;">17</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd2ac8a" class="outline-3">
+<h3 id="orgbd2ac8a"><span class="section-number-3">3.2.</span> Theme</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">doom-theme</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">doom-dracula</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org30b054b" class="outline-3">
+<h3 id="org30b054b"><span class="section-number-3">3.3.</span> Line Numbers</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">display-line-numbers-type</span> t<span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org98dbd27" class="outline-2">
+<h2 id="org98dbd27"><span class="section-number-2">4.</span> Meta</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgc3ec264" class="outline-3">
+<h3 id="orgc3ec264"><span class="section-number-3">4.1.</span> Org Directory</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">org-directory</span> <span style="color: #f1fa8c;">"~/org/"</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgaddec2e" class="outline-2">
+<h2 id="orgaddec2e"><span class="section-number-2">5.</span> Programs</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org391f5e9" class="outline-4">
+<h4 id="org391f5e9"><span class="section-number-4">5.0.1.</span> Editing Features</h4>
+<div class="outline-text-4" id="text-5-0-1">
+</div>
+<ol class="org-ol">
+<li><a id="org7c09d96"></a>Hungry Delete<br />
+<div class="outline-text-5" id="text-5-0-1-1">
+<ul class="org-ul">
+<li><i>Reference: <a href="https://github.com/nflath/hungry-delete">https://github.com/nflath/hungry-delete</a></i></li>
+</ul>
+
+<p>
+Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like c-hungry-delete-mode, which is where the code was from. This just packages it up to be easier to use in other modes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">use-package</span> hungry-delete
+    <span style="color: #ffb86c;">:ensure</span> t
+    <span style="color: #ffb86c;">:defer</span> t
+    <span style="color: #ffb86c;">:config</span> <span style="color: #ff79c6;">(</span>global-hungry-delete-mode<span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org3f6bb22" class="outline-3">
+<h3 id="org3f6bb22"><span class="section-number-3">5.1.</span> Highlight Indent Guides</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+The &ldquo;highlight-indent-guides&rdquo; package is an Emacs extension that enhances code readability by providing visual indent guides. As you work with code, it displays vertical lines at each level of indentation, making it easier to distinguish different blocks and understand the code&rsquo;s structure. This feature is particularly useful for languages with significant indentation, such as Python. &ldquo;highlight-indent-guides&rdquo; helps maintain consistent and well-organized code, ensuring a more pleasant coding experience in Emacs.
+</p>
+
+<ul class="org-ul">
+<li><i>Reference - <a href="https://github.com/DarthFennec/highlight-indent-guides">https://github.com/DarthFennec/highlight-indent-guides</a></i></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">use-package</span> highlight-indent-guides
+    <span style="color: #ffb86c;">:ensure</span> t
+    <span style="color: #ffb86c;">:defer</span> t
+    <span style="color: #ffb86c;">:hook</span> <span style="color: #ff79c6;">(</span><span style="color: #50fa7b;">prog-mode</span> . <span style="color: #ffc9e8;">highlight-indent-guides-mode</span><span style="color: #ff79c6;">)</span>
+    <span style="color: #ffb86c;">:config</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">highlight-indent-guides-method</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">character</span><span style="color: #ff79c6;">)</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">highlight-indent-guides-character</span> ?\|<span style="color: #ff79c6;">)</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">highlight-indent-guides-responsive</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">top</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0710c84" class="outline-3">
+<h3 id="org0710c84"><span class="section-number-3">5.2.</span> Emacs LSP</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+The &ldquo;emacs-lsp&rdquo; project is a collection of Emacs packages and tools that implement the Language Server Protocol (LSP) in Emacs. LSP is a standardized communication protocol that enables integration with language servers, which are external programs providing advanced code analysis and language-specific features.
+</p>
+
+<p>
+The goal of the &ldquo;emacs-lsp&rdquo; project is to enhance the Emacs text editor and turn it into a powerful Integrated Development Environment (IDE) by leveraging the capabilities of language servers. These packages provide language-specific features such as autocompletion, real-time error checking, code navigation, and more. By adhering to the LSP, developers can use a consistent approach across various programming languages, streamlining their workflow and improving productivity.
+</p>
+
+<p>
+The project offers a diverse range of packages, each tailored to specific programming languages and their corresponding language servers. This initiative fosters an integrated and standardized environment for Emacs users, enabling them to efficiently code in different languages and benefit from advanced language-specific tooling within their favorite text editor. The &ldquo;emacs-lsp&rdquo; project is a valuable resource for developers seeking a robust and unified coding experience in Emacs.
+</p>
+
+<ul class="org-ul">
+<li><i>Reference - <a href="https://emacs-lsp.github.io">https://emacs-lsp.github.io</a></i></li>
+</ul>
+</div>
+<div id="outline-container-orga3654f0" class="outline-4">
+<h4 id="orga3654f0"><span class="section-number-4">5.2.1.</span> LSP Mode</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<p>
+LSP mode (Language Server Protocol mode) in Emacs is a powerful extension that brings IDE-like capabilities to various programming languages. It provides integration with language servers, which are separate programs that offer advanced code analysis, autocompletion, and other language-specific features. LSP mode allows developers to benefit from a consistent development experience across different programming languages, eliminating the need for language-specific configurations and setups. With LSP mode, Emacs users can enjoy enhanced code navigation, error checking, and automatic code formatting, significantly improving their productivity and coding efficiency.
+</p>
+
+
+<div id="orgf115cc4" class="figure">
+<p><img src="https://emacs-lsp.github.io/lsp-mode/examples/completion.gif" alt="completion.gif" />
+</p>
+<p><span class="figure-number">Figure 2: </span>LSP mode completion</p>
+</div>
+
+<ul class="org-ul">
+<li><i>Reference - <a href="https://github.com/emacs-lsp/lsp-mode">https://github.com/emacs-lsp/lsp-mode</a></i></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">use-package</span> lsp-mode
+    <span style="color: #ffb86c;">:ensure</span> t
+    <span style="color: #ffb86c;">:defer</span> t
+    <span style="color: #ffb86c;">:init</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">setq</span> lsp-keymap-prefix <span style="color: #f1fa8c;">"C-c l"</span><span style="color: #ff79c6;">)</span>
+    <span style="color: #ffb86c;">:config</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">setq</span> lsp-headerline-breadcrumb-enable nil<span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org6eb28fc" class="outline-3">
+<h3 id="org6eb28fc"><span class="section-number-3">5.3.</span> Languages</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Now, we will configure language server protocol and other settings for each,
+languages I work on, one by one.
+</p>
+</div>
+<div id="outline-container-org965b173" class="outline-4">
+<h4 id="org965b173"><span class="section-number-4">5.3.1.</span> Web (html/css/js)</h4>
+<div class="outline-text-4" id="text-5-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgc486c11"></a>Web Mode<br />
+<div class="outline-text-5" id="text-5-3-1-1">
+<p>
+Web Mode in Emacs is a major mode that enhances web development by providing specialized editing features for working with HTML, CSS, JavaScript, and other web-related languages. It intelligently handles nested tags, auto-closes HTML tags, and offers indentation and syntax highlighting tailored for web development. Web Mode also supports embedded templates and server-side code, making it a versatile tool for web developers to efficiently create and edit web pages and applications within the Emacs text editor.
+</p>
+
+<ul class="org-ul">
+<li><i>Reference: <a href="https://web-mode.org">https://web-mode.org</a></i></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">use-package</span> web-mode
+    <span style="color: #ffb86c;">:ensure</span> t
+    <span style="color: #ffb86c;">:defer</span> t
+    <span style="color: #ffb86c;">:config</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #ff79c6;">setq</span>
+     web-mode-markup-indent-offset <span style="color: #bd93f9; font-weight: bold;">2</span>
+     web-mode-css-indent-offset <span style="color: #bd93f9; font-weight: bold;">2</span>
+     web-mode-code-indent-offset <span style="color: #bd93f9; font-weight: bold;">2</span>
+     web-mode-style-padding <span style="color: #bd93f9; font-weight: bold;">2</span>
+     web-mode-script-padding <span style="color: #bd93f9; font-weight: bold;">2</span>
+     web-mode-enable-auto-closing t
+     web-mode-enable-auto-opening t
+     web-mode-enable-auto-pairing t
+     web-mode-enable-auto-indentation t<span style="color: #ff79c6;">)</span>
+    <span style="color: #ffb86c;">:mode</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #f1fa8c;">".html$"</span> <span style="color: #f1fa8c;">"*.php$"</span> <span style="color: #f1fa8c;">"*.tsx"</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgb2b8e95"></a>Emmet-mode<br />
+<div class="outline-text-5" id="text-5-3-1-2">
+<p>
+Emmet Mode in Emacs is an extension that significantly boosts web development productivity by enabling advanced HTML and CSS abbreviations. Originally inspired by the Emmet toolkit, this mode allows developers to write complex markup with ease using intuitive shortcuts and expand them into full HTML or CSS code. It supports dynamic placeholders, numeric repetition, and custom abbreviation expansion, making it a powerful tool for rapidly generating and editing HTML and CSS structures. With Emmet Mode, Emacs users can streamline their web development workflow, saving time and effort while maintaining clean and well-structured code.
+</p>
+
+<ul class="org-ul">
+<li><i>Reference: <a href="https://https//github.com/smihica/emmet-mode">https://https//github.com/smihica/emmet-mode</a></i></li>
+</ul>
+
+
+<div id="orgbc6cdad" class="figure">
+<p><img src="https://www.philnewton.net/assets/blog/2015/08/emmet.gif" alt="emmet.gif" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Emmet Mode Demo</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">use-package</span> <span style="color: #ffc9e8;">emmet-mode</span>
+    <span style="color: #ffb86c;">:ensure</span> t
+    <span style="color: #ffb86c;">:defer</span> t<span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org448c9b3" class="outline-2">
+<h2 id="org448c9b3"><span class="section-number-2">6.</span> Org Mode</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Org Mode in Emacs is a powerful and versatile outlining and organizing tool that extends the text editor&rsquo;s capabilities beyond simple plain text. It provides a structured and hierarchical format for creating notes, to-do lists, project plans, and more. Org Mode offers features such as headings, lists, tables, tags, and timestamps, enabling users to manage complex information with ease. It supports exporting to various formats like HTML, PDF, and LaTeX, making it suitable for both personal organization and professional document preparation. With its extensive functionality and seamless integration with Emacs, Org Mode empowers users to efficiently manage tasks, maintain documentation, and stay organized in a clutter-free and efficient environment.
+</p>
+</div>
+<div id="outline-container-orgba84308" class="outline-3">
+<h3 id="orgba84308"><span class="section-number-3">6.1.</span> Org Bullet</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Org Bullet is an Emacs package that enhances the visual appearance of Org Mode outlines by replacing plain text bullet points with custom symbols. It offers a variety of stylish bullets to represent different outline levels, making the organization of tasks and information more visually appealing and easier to comprehend. Org Bullet is highly configurable, allowing users to customize the bullet symbols to their preference and create a more visually pleasing and organized presentation of hierarchical data within Org Mode documents.
+</p>
+
+<ul class="org-ul">
+<li><i>Reference - <a href="https://github.com/sabof/org-bullets">https://github.com/sabof/org-bullets</a></i></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">use-package</span> org-bullets
+    <span style="color: #ffb86c;">:ensure</span> t
+    <span style="color: #ffb86c;">:defer</span> t
+    <span style="color: #ffb86c;">:config</span>
+    <span style="color: #ff79c6;">(</span><span style="color: #50fa7b;">add-hook</span> <span style="color: #ff79c6;">'</span><span style="color: #ffc9e8;">org-mode-hook</span> <span style="color: #50fa7b;">(</span><span style="color: #ff79c6;">lambda</span> <span style="color: #bd93f9;">()</span> <span style="color: #bd93f9;">(</span>org-bullets-mode <span style="color: #bd93f9; font-weight: bold;">1</span><span style="color: #bd93f9;">)</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd2f71c9" class="outline-3">
+<h3 id="orgd2f71c9"><span class="section-number-3">6.2.</span> Org Agenda</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Org Agenda in Emacs is a powerful and flexible tool for managing tasks, appointments, and notes. It provides a dynamic view of scheduled events, deadlines, and TODO items from various Org Mode files, enabling users to organize and prioritize their work effectively. With its customizable views, filters, and sorting options, Org Agenda offers a comprehensive overview of upcoming events and pending tasks, making it an essential feature for staying organized and productive in Emacs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">org-agenda-files</span> <span style="color: #ff79c6;">(</span><span style="color: #8be9fd;">append</span>
+                          <span style="color: #50fa7b;">(</span><span style="color: #50fa7b;">file-expand-wildcards</span> <span style="color: #f1fa8c;">"~/dox/org/*.org"</span><span style="color: #50fa7b;">)</span><span style="color: #ff79c6;">)</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org27a058f" class="outline-2">
+<h2 id="org27a058f"><span class="section-number-2">7.</span> Misc</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Some extra setting, which doesn&rsquo;t fall in any category above.
+</p>
+</div>
+<div id="outline-container-org1077a70" class="outline-3">
+<h3 id="org1077a70"><span class="section-number-3">7.1.</span> Locales</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li><i>Reference: <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Locales.html">https://www.gnu.org/software/emacs/manual/html_node/elisp/Locales.html</a></i></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #61bfff;">(</span><span style="color: #ff79c6;">setq</span> <span style="color: #ffc9e8;">locale-coding-system</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">utf-8</span><span style="color: #61bfff;">)</span>
+  <span style="color: #61bfff;">(</span><span style="color: #50fa7b;">set-terminal-coding-system</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">utf-8</span><span style="color: #61bfff;">)</span>
+  <span style="color: #61bfff;">(</span><span style="color: #50fa7b;">set-keyboard-coding-system</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">utf-8</span><span style="color: #61bfff;">)</span>
+  <span style="color: #61bfff;">(</span><span style="color: #50fa7b;">set-selection-coding-system</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">utf-8</span><span style="color: #61bfff;">)</span>
+  <span style="color: #61bfff;">(</span><span style="color: #50fa7b;">prefer-coding-system</span> <span style="color: #ff79c6;">'</span><span style="color: #8be9fd;">utf-8</span><span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: SlimTux</p>
+<p class="date">Created: 2023-10-06 Fri 19:53</p>
+</div>
+</body>
+</html>

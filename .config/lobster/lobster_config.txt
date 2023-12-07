@@ -1,0 +1,13 @@
+lobster_editor=nvim
+download_dir=~/Videos/lobster
+histfile=~/.config/lobster/histfile
+###use_external_menu=1
+image_preview=1
+
+preview_window_size=40%
+ueberzug_x=$(($(tput cols) - 55))
+ueberzug_y=$(($(tput lines) / 4))
+ueberzug_max_width=45
+ueberzug_max_height=45
+
+history=1

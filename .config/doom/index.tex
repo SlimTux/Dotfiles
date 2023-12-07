@@ -1,0 +1,256 @@
+% Created 2023-10-15 Sun 19:19
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{SlimTux}
+\date{\today}
+\title{SlimTux's Emacs Config}
+\hypersetup{
+ pdfauthor={SlimTux},
+ pdftitle={SlimTux's Emacs Config},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.1 (Org mode 9.7)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\label{sec:orgd44a427}
+This is an Elisp program that runs every time I start my Emacs editor. Some people also call it an \textbf{emacs config}. Why am I writing it under Org mode? \emph{Literate Programming, Bitch}!
+
+\begin{itemize}
+\item \textbf{Author}: SlimTux
+\item \textbf{Created}: 06-10-2023
+\item \textbf{License}: \href{./LICENSE}{GNU General Public License (GPL)}
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{/home/henrique/.emacs.d/.local/cache/org/persist/73/094bf9-8486-4d7b-8345-410f8419b656-8f8bc30728622e3f924b1070079c6d16.png}
+\caption{\label{fig:Emacs meme}XKCD Emacs Comic}
+\end{figure}
+\section{Package Management}
+\label{sec:orgc410163}
+Emacs is like an operating system; it is highly extensible. You can install new functionality by just installing a package, similar to how you do it in an OS. You can also configure these programs by changing some Elisp variables.
+
+\begin{verse}
+An average Emacs user can easily end up installing 100+ packages.\\[0pt]
+\end{verse}
+\subsection{Melpa}
+\label{sec:org6596569}
+\begin{itemize}
+\item \textbf{Reference}: \url{https://www.melpa.org/}
+\end{itemize}
+
+By default, Emacs contains a limited number of package choices. This is why we need Melpa. It's a package repository for Emacs.
+
+\begin{verse}
+MELPA is an ELPA-compatible package repository that contains an enormous number of useful Emacs packages.\\[0pt]
+\end{verse}
+
+Think of it like the VSCode Plugin Marketplace (eww).
+
+\begin{verbatim}
+(require 'package)
+(setq package-enable-at-startup nil)
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+\end{verbatim}
+\section{UI}
+\label{sec:org11ddd4b}
+\subsection{Fonts(FIX-ME)}
+\label{sec:orgdf2a86c}
+\begin{verbatim}
+(setq doom-font  (font-spec :family "JetBrains Mono" :size 17))
+\end{verbatim}
+\subsection{Theme}
+\label{sec:orgbbcf125}
+\begin{verbatim}
+(setq doom-theme 'doom-dracula)
+\end{verbatim}
+\subsection{Line Numbers}
+\label{sec:orgb2ac990}
+\begin{verbatim}
+(setq display-line-numbers-type t)
+\end{verbatim}
+\section{Meta}
+\label{sec:orgb1db833}
+\subsection{Org Directory}
+\label{sec:org6b93add}
+\begin{verbatim}
+(setq org-directory "~/org/")
+\end{verbatim}
+\section{Programs}
+\label{sec:org4198aee}
+\subsubsection{Editing Features}
+\label{sec:orgbd69f24}
+\begin{enumerate}
+\item Hungry Delete
+\label{sec:orge8b649c}
+\begin{itemize}
+\item \emph{Reference: \url{https://github.com/nflath/hungry-delete}}
+\end{itemize}
+
+Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like c-hungry-delete-mode, which is where the code was from. This just packages it up to be easier to use in other modes.
+
+\begin{verbatim}
+  (use-package hungry-delete
+    :ensure t
+    :defer t
+    :config (global-hungry-delete-mode))
+\end{verbatim}
+\end{enumerate}
+\subsection{Highlight Indent Guides}
+\label{sec:org0acb349}
+The ``highlight-indent-guides'' package is an Emacs extension that enhances code readability by providing visual indent guides. As you work with code, it displays vertical lines at each level of indentation, making it easier to distinguish different blocks and understand the code's structure. This feature is particularly useful for languages with significant indentation, such as Python. ``highlight-indent-guides'' helps maintain consistent and well-organized code, ensuring a more pleasant coding experience in Emacs.
+
+\begin{itemize}
+\item \emph{Reference - \url{https://github.com/DarthFennec/highlight-indent-guides}}
+\end{itemize}
+
+\begin{verbatim}
+  (use-package highlight-indent-guides
+    :ensure t
+    :defer t
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :config
+    (setq highlight-indent-guides-method 'character)
+    (setq highlight-indent-guides-character ?\|)
+    (setq highlight-indent-guides-responsive 'top))
+\end{verbatim}
+\subsection{Emacs LSP}
+\label{sec:org7471a30}
+The ``emacs-lsp'' project is a collection of Emacs packages and tools that implement the Language Server Protocol (LSP) in Emacs. LSP is a standardized communication protocol that enables integration with language servers, which are external programs providing advanced code analysis and language-specific features.
+
+The goal of the ``emacs-lsp'' project is to enhance the Emacs text editor and turn it into a powerful Integrated Development Environment (IDE) by leveraging the capabilities of language servers. These packages provide language-specific features such as autocompletion, real-time error checking, code navigation, and more. By adhering to the LSP, developers can use a consistent approach across various programming languages, streamlining their workflow and improving productivity.
+
+The project offers a diverse range of packages, each tailored to specific programming languages and their corresponding language servers. This initiative fosters an integrated and standardized environment for Emacs users, enabling them to efficiently code in different languages and benefit from advanced language-specific tooling within their favorite text editor. The ``emacs-lsp'' project is a valuable resource for developers seeking a robust and unified coding experience in Emacs.
+
+\begin{itemize}
+\item \emph{Reference - \url{https://emacs-lsp.github.io}}
+\end{itemize}
+\subsubsection{LSP Mode}
+\label{sec:org07be8c9}
+LSP mode (Language Server Protocol mode) in Emacs is a powerful extension that brings IDE-like capabilities to various programming languages. It provides integration with language servers, which are separate programs that offer advanced code analysis, autocompletion, and other language-specific features. LSP mode allows developers to benefit from a consistent development experience across different programming languages, eliminating the need for language-specific configurations and setups. With LSP mode, Emacs users can enjoy enhanced code navigation, error checking, and automatic code formatting, significantly improving their productivity and coding efficiency.
+
+\url{https://emacs-lsp.github.io/lsp-mode/examples/completion.gif}
+
+\begin{itemize}
+\item \emph{Reference - \url{https://github.com/emacs-lsp/lsp-mode}}
+\end{itemize}
+
+\begin{verbatim}
+  (use-package lsp-mode
+    :ensure t
+    :defer t
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :config
+    (setq lsp-headerline-breadcrumb-enable nil))
+\end{verbatim}
+\subsection{Languages}
+\label{sec:org95721aa}
+Now, we will configure language server protocol and other settings for each,
+languages I work on, one by one.
+\subsubsection{Web (html/css/js)}
+\label{sec:orgc704715}
+\begin{enumerate}
+\item Web Mode
+\label{sec:orgedac496}
+Web Mode in Emacs is a major mode that enhances web development by providing specialized editing features for working with HTML, CSS, JavaScript, and other web-related languages. It intelligently handles nested tags, auto-closes HTML tags, and offers indentation and syntax highlighting tailored for web development. Web Mode also supports embedded templates and server-side code, making it a versatile tool for web developers to efficiently create and edit web pages and applications within the Emacs text editor.
+
+\begin{itemize}
+\item \emph{Reference: \url{https://web-mode.org}}
+\end{itemize}
+
+\begin{verbatim}
+  (use-package web-mode
+    :ensure t
+    :defer t
+    :config
+    (setq
+     web-mode-markup-indent-offset 2
+     web-mode-css-indent-offset 2
+     web-mode-code-indent-offset 2
+     web-mode-style-padding 2
+     web-mode-script-padding 2
+     web-mode-enable-auto-closing t
+     web-mode-enable-auto-opening t
+     web-mode-enable-auto-pairing t
+     web-mode-enable-auto-indentation t)
+    :mode
+    (".html$" "*.php$" "*.tsx"))
+\end{verbatim}
+\item Emmet-mode
+\label{sec:org3352673}
+Emmet Mode in Emacs is an extension that significantly boosts web development productivity by enabling advanced HTML and CSS abbreviations. Originally inspired by the Emmet toolkit, this mode allows developers to write complex markup with ease using intuitive shortcuts and expand them into full HTML or CSS code. It supports dynamic placeholders, numeric repetition, and custom abbreviation expansion, making it a powerful tool for rapidly generating and editing HTML and CSS structures. With Emmet Mode, Emacs users can streamline their web development workflow, saving time and effort while maintaining clean and well-structured code.
+
+\begin{itemize}
+\item \emph{Reference: \url{https://https://github.com/smihica/emmet-mode}}
+\end{itemize}
+
+\url{https://www.philnewton.net/assets/blog/2015/08/emmet.gif}
+
+\begin{verbatim}
+  (use-package emmet-mode
+    :ensure t
+    :defer t)
+\end{verbatim}
+\end{enumerate}
+\section{Org Mode}
+\label{sec:orgaa42f0c}
+Org Mode in Emacs is a powerful and versatile outlining and organizing tool that extends the text editor's capabilities beyond simple plain text. It provides a structured and hierarchical format for creating notes, to-do lists, project plans, and more. Org Mode offers features such as headings, lists, tables, tags, and timestamps, enabling users to manage complex information with ease. It supports exporting to various formats like HTML, PDF, and \LaTeX{}, making it suitable for both personal organization and professional document preparation. With its extensive functionality and seamless integration with Emacs, Org Mode empowers users to efficiently manage tasks, maintain documentation, and stay organized in a clutter-free and efficient environment.
+\subsection{Org Bullet}
+\label{sec:orga671186}
+Org Bullet is an Emacs package that enhances the visual appearance of Org Mode outlines by replacing plain text bullet points with custom symbols. It offers a variety of stylish bullets to represent different outline levels, making the organization of tasks and information more visually appealing and easier to comprehend. Org Bullet is highly configurable, allowing users to customize the bullet symbols to their preference and create a more visually pleasing and organized presentation of hierarchical data within Org Mode documents.
+
+\begin{itemize}
+\item \emph{Reference - \url{https://github.com/sabof/org-bullets}}
+\end{itemize}
+
+\begin{verbatim}
+  (use-package org-bullets
+    :ensure t
+    :defer t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+\end{verbatim}
+\subsection{Org Agenda}
+\label{sec:org11f7547}
+Org Agenda in Emacs is a powerful and flexible tool for managing tasks, appointments, and notes. It provides a dynamic view of scheduled events, deadlines, and TODO items from various Org Mode files, enabling users to organize and prioritize their work effectively. With its customizable views, filters, and sorting options, Org Agenda offers a comprehensive overview of upcoming events and pending tasks, making it an essential feature for staying organized and productive in Emacs.
+
+\begin{verbatim}
+  (setq org-agenda-files (append
+                          (file-expand-wildcards "~/dox/org/*.org")))
+\end{verbatim}
+\section{Misc}
+\label{sec:org2967a67}
+Some extra setting, which doesn't fall in any category above.
+\subsection{Locales}
+\label{sec:orgff712da}
+\begin{itemize}
+\item \emph{Reference: \url{https://www.gnu.org/software/emacs/manual/html\_node/elisp/Locales.html}}
+\end{itemize}
+\begin{verbatim}
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+\end{verbatim}
+\end{document}

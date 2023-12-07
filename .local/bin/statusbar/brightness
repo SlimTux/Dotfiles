@@ -1,0 +1,21 @@
+#!/bin/sh
+# display current brightness
+
+case $BLOCK_BUTTON in
+	1) setsid -f "$TERMINAL" ;;
+	2) notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted.
+- Middle click to mute.
+- Scroll to change." ;;
+	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+# get first two digits of brightness value
+brightnum=$(brillo -G)
+brightness=$(printf "${brightnum%}")
+
+if [[ "$brightness" -gt "70" ]]; then
+	echo "🔅$brightness"
+elif [[ "$brightness" -lt "30" ]]; then
+	echo "🔆$brightness"
+else
+	echo "⛅$brightness"
+fi

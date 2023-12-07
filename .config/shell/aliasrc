@@ -1,0 +1,150 @@
+#!/bin/sh
+
+# Use neovim for vim if present.
+#[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+[ -f "$MBSYNCRC" ] && alias mbsync="mbsync -c $MBSYNCRC"
+
+# sudo not required for some system commands
+for command in mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+	alias $command="sudo $command"
+done; unset command
+
+se() {
+	choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+	;}
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	sudo="sudo " \
+	mv="mv -iv" \
+	ln="ln -svr" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	rsync="rsync --progress -vrPlu" \
+	mkd="mkdir -pv" \
+	yt="yt-dlp --embed-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ytt="yt --skip-download --write-thumbnail" \
+	ffmpeg_mp4_webm="ffmpeg -hide_banner -i input.mp4 -preset ultrafast output.webm" \
+	ffmpeg="ffmpeg -hide_banner" \
+        kp="./Downloads/GIT/apps/kpcli.pl" \
+	hst="history 1 -1 | cut -c 8- | sort | uniq | fzf | tr -d '\n' | xclip -sel c"
+# Videos
+alias mpv="ImPlay"
+# Colorize commands when possible.
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
+# Alias from my zshrc
+alias ls="ls --color"
+# alias ls='ls --color=auto'
+
+#MOVE FILES
+##IMAGES
+alias \
+f-png="find /home/henrique/ -maxdepth 1 -type f -iname “.png” " \
+fmv-png=" \mv -iv -f ~/*png ~/Extensions/Static/png/  " \
+f-jpg="find /home/henrique/ -maxdepth 1 -type f -iname “.jpg” " \
+fmv-jpg=" \mv -iv -f ~/*jpg ~/Extensions/Static/jpg/  " \
+f-jpeg="find /home/henrique/ -maxdepth 1 -type f -iname “.jpeg” " \
+fmv-jpeg=" \mv -iv -f ~/*jpeg ~/Extensions/Static/jpeg/  "
+## VIDEOS
+alias \
+f-webm="find /home/henrique/ -maxdepth 1 -type f -iname “.webm” " \
+fmv-webm=" \mv -iv -f ~/*webm ~/Extensions/Videos/webm/  "
+## Torrent
+alias \
+f-torrent="find /home/henrique/ -maxdepth 1 -type f -iname “.torrent” " \
+fmv-torrent=" \mv -iv -f ~/*torrent ~/Torrent/  " \
+fmv-torrent_Downloads=" \mv -iv -f ~/Downloads/*torrent ~/Torrent/  " \
+fmv-torrent_Videos=" \mv -iv -f /home/henrique/Videos/*torrent ~/Torrent/  " \
+fmv-torrent_Vll=" \mv -iv -f ~/Videos/LINUX/LUKE/*torrent ~/Torrent/  " \
+fmv-torrent_Vb=" \mv -iv -f ~/Videos/BSD-people/*torrent ~/Torrent/  " \
+fmv-torrent_Vp=" \mv -iv -f ~/Videos/PROGRAMING/*torrent ~/Torrent/  " \
+fmv-torrent_Channel=" \mv -iv -f ~/Media/Channel/videos/*torrent ~/Torrent/  " \
+fmv-torrent_Documents=" \mv -iv -f ~/Documents/*torrent ~/Torrent/  "
+## Media
+alias \
+fmv-gif=" \mv -iv -f ~/*gif ~/Extensions/Static/gif/  " \
+f-mp4="find /home/henrique/ -maxdepth 1 -type f -iname “.mp4” " \
+fmv-mp4=" \mv -iv -f ~/*mp4 ~/Extensions/Videos/mp4/  " \
+fmv-mkv=" \mv -iv -f ~/*mkv ~/Extensions/Videos/mkv/  "
+## DOCUMENTS
+alias \
+f-pdf="find /home/henrique/ -maxdepth 1 -type f -iname “.pdf” " \
+fmv-pdf=" \mv -iv -f ~/*pdf ~/Extensions/Documents/pdf/  " \
+fmv-pdf-D=" \mv -iv -f ~/Downloads/*pdf ~/Extensions/Documents/pdf/  "
+
+alias \
+fmv-epub=" \mv -iv -f ~/*epub ~/Extensions/Documents/epub/  " \
+fmv-epub-D=" \mv -iv -f ~/Downloads/*epub ~/Extensions/Documents/epub/  "
+
+alias fmv-odt=" \mv -iv -f ~/*odt ~/Extensions/Documents/odt/  "
+
+alias fmv-md=" \mv -iv -f ~/*md ~/Extensions/Text/md/  "
+
+alias fmv-txt=" \mv -iv -f ~/*txt ~/Extensions/Text/txt/  "
+
+alias fmv-gz=" \mv -iv -f ~/*gz ~/Extensions/Documents/gz/  "
+
+#####################
+alias yay='paru'
+alias please='./tutorial_env/bin/please'
+alias grep='grep --color=auto'
+alias mdt='mdt --dir ~/tasks --inbox ~/tasks/inbox.md'
+alias a-z='tr -cd 'a-z' < /dev/urandom'
+alias pw="sed -e 's/[^[:print:]]//g; s/\x27//g; /^.\{16\}$/!d; q' /dev/urandom"
+alias super-pw="sed -e 's/[^[:print:]]//g; s/\x27//g; /^.\{256\}$/!d; q' /dev/urandom"
+alias tv="sh tv.sh"
+
+
+# School
+alias \
+MAI="cd ~/Documents/School/MAI/IA" \
+CAS="cd ~/Programing/blogs/main/blog-cas" \
+Eco="cd ~/Documents/School/Economics" \
+EE="cd ~/Documents/School/EE" \
+ESS="cd ~/Documents/School/ESS/IA" \
+His="cd ~/Documents/School/History" \
+Lit="cd ~/Documents/School/Literature" \
+Lit_E="cd ~/Documents/School/Literature/ESSAY" \
+Lit_O="cd ~/Documents/School/Literature/Oral" \
+Tok="cd ~/Documents/School/tok"
+
+alias \
+eco="Eco" \
+cas="CAS" \
+ess="ESS" \
+lit="Lit" \
+lite="Lit_E" \
+lito="Lit_O" \
+his="His" \
+tok="Tok"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	trem="transmission-remote" \
+	YT="ytfzf -t" \
+	sdn="shutdown -h now" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	z="zathura"
+
+alias \
+	lf="lfub" \
+	pip="pipenv run pip3" \
+	python="pipenv run python3" \
+	magit="nvim -c MagitOnly" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
