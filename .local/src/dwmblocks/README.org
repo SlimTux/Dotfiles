@@ -1,0 +1,6 @@
+#+TITLE: DWMBLOCKS
+#+SUBTITLE: DWMBLOCKS's configuration
+#+DATE:
+#+PROPERTY: header-args :tangle README.md
+#+AUTHOR: SlimTux
+* Table of contents :toc:
