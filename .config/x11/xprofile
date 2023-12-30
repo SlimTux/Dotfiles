@@ -6,14 +6,14 @@
 xrandr --dpi 96 & # Set DPI. User may want to use a larger number for larger screens.
 setxkbmap de &
 unclutter -idle 3 -jitter 25x25 &
-batsignal -b -d 5 -c 10 -w 20 -f 88 &
+batsignal -b -d 5 -c 10 -w 20 -f 96 &
 xscreensaver -no-splash &
 xautolock -time 10 -detectsleep -locker 'xscreensaver -lock"' &
 xgifwallpaper gentistic.gif &
 ############setbg &		# set the background with the `setbg` script
 #xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment to use Xresources colors/settings on startup
 
-autostart="mpd mullvad-vpn batsignal xcompmgr xbanish dunst unclutter pipewire remapd"
+autostart="mpd dhcpd mullvad-vpn batsignal xcompmgr xbanish dunst unclutter pipewire remapd"
 
 # Automatically lock the screen if not used for more than 10 minutes
 #xautolock -time 10 -detectsleep -locker 'slock -m "Locked at $(date "+%a %d, %H:%M:%S") $(printf "\nRandom quote: \n") $(fortune)"' &

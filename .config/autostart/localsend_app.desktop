@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=localsend_app
-Comment=localsend_app startup script
-Exec=/tmp/.mount_localsvwYXiH/localsend_app autostart
-StartupNotify=false
-Terminal=false
