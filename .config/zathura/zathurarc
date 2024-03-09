@@ -13,3 +13,24 @@ map J zoom out
 map i recolor
 map p print
 map g goto top
+
+set default-bg                     "#3f3f3e"
+set default-fg                     "#e4e7ec"
+set statusbar-bg                   "#3f3f3e"
+set statusbar-fg                   "#e4e7ec"
+set inputbar-bg                    "#3f3f3e"
+set inputbar-fg                    "#e4e7ec"
+set notification-bg                "#3f3f3e"
+set notification-fg                "#e4e7ec"
+set notification-error-bg          "#3f3f3e"
+set notification-error-fg          "#e4e7ec"
+set notification-warning-bg        "#3f3f3e"
+set notification-warning-fg        "#e4e7ec"
+set highlight-color                "#B2C6E6"
+set highlight-active-color         "#D5D5D6"
+set completion-bg                  "#B2C6E6"
+set completion-fg                  "#D5D5D6"
+set completion-highlight-bg        "#B2C6E6"
+set completion-highlight-fg        "#D5D5D6"
+set recolor-lightcolor             "#3f3f3e"
+set recolor-darkcolor              "#e4e7ec"
